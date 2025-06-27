@@ -4,3 +4,5 @@ IRDAI_compliance_agent/.env
 Policy_QA_Agent/.env
 IRDAI_compliance_agent/uploads/
 Policy_QA_Agent/uploads
+vectorstore/
+

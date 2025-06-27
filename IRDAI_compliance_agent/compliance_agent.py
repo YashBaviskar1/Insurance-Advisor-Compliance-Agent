@@ -1,15 +1,16 @@
-
+import os
 import json
 from pathlib import Path
 
-from langchain_community.document_loaders import PyPDFLoader
+from langchain_community.document_loaders import PyPDFLoader, DirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 
 # === CONFIG ===
 GUIDELINES_DB_PATH = "vectorstore/db_faiss_guidelines"
-EMBEDDING_MODEL_NAME = "BAAI/bge-base-en-v1.5" 
+RAW_PDF_PATH = "data/guidelines_documentation"
+EMBEDDING_MODEL_NAME = "BAAI/bge-base-en-v1.5"
 CHUNK_SIZE = 500
 CHUNK_OVERLAP = 50
 SIMILARITY_THRESHOLD_COMPLIANT = 0.75
@@ -23,7 +24,7 @@ COMMON_CATEGORIES = ["Claims", "Consumer Rights"]
 # === EMBEDDING MODEL ===
 embedding_model = HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL_NAME)
 
-# === Load rules once ===
+# === Load compliance rules once ===
 with open(COMPLIANCE_RULE_FILES[0], 'r', encoding='utf-8') as f:
     rules1 = json.load(f)
 with open(COMPLIANCE_RULE_FILES[1], 'r', encoding='utf-8') as f:
@@ -38,8 +39,26 @@ def get_available_categories():
         if rule["category"] not in COMMON_CATEGORIES
     ))
 
+# === Runtime FAISS builder ===
+def build_guidelines_vectorstore():
+    print("[INFO] Building FAISS guidelines store from PDFs...")
+    loader = DirectoryLoader(RAW_PDF_PATH, glob="*.pdf", loader_cls=PyPDFLoader)
+    documents = loader.load()
+    print(f"[INFO] Loaded {len(documents)} documents.")
+
+    splitter = RecursiveCharacterTextSplitter(chunk_size=CHUNK_SIZE, chunk_overlap=CHUNK_OVERLAP)
+    chunks = splitter.split_documents(documents)
+    print(f"[INFO] Created {len(chunks)} text chunks.")
+
+    db = FAISS.from_documents(chunks, embedding_model)
+    db.save_local(GUIDELINES_DB_PATH)
+    print(f"[INFO] FAISS store saved to {GUIDELINES_DB_PATH}")
+
 def load_guideline_db():
-    """Load the IRDAI guidelines vectorstore."""
+    """Load or build the IRDAI guidelines vectorstore."""
+    if not os.path.exists(GUIDELINES_DB_PATH):
+        build_guidelines_vectorstore()
+
     return FAISS.load_local(
         GUIDELINES_DB_PATH,
         embeddings=embedding_model,
