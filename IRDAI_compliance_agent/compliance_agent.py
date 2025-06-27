@@ -6,27 +6,25 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 
-
-
 GUIDELINES_DB_PATH = "vectorstore/db_faiss_guidelines"
-USER_POLICY_PATH = r"IRDAI_compliance_agent\uploads\POLICY CLAUSES Arogya Sanjeevani.pdf"
+USER_POLICY_PATH = r"IRDAI_compliance_agent\uploads\standard-fire-special-perils-policy-wordings.pdf"
 EMBEDDING_MODEL_NAME = "BAAI/bge-base-en-v1.5" 
 CHUNK_SIZE = 500
 CHUNK_OVERLAP = 50
 SIMILARITY_THRESHOLD_COMPLIANT = 0.75
 SIMILARITY_THRESHOLD_PARTIAL = 0.5
 
-COMPLIANCE_RULE_FILES = ["IRDAI_compliance_agent/compliance_rules.json", "IRDAI_compliance_agent/compliance_rules2.json"]
+COMPLIANCE_RULE_FILES = [
+    "IRDAI_compliance_agent/compliance_rules.json", 
+    "IRDAI_compliance_agent/compliance_rules2.json"
+]
 
+COMMON_CATEGORIES = ["Claims", "Consumer Rights"]
 
 embedding_model = HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL_NAME)
 
-
-
 print("[INFO] Loading IRDAI guidelines vectorstore...")
 guideline_db = FAISS.load_local(GUIDELINES_DB_PATH, embeddings=embedding_model, allow_dangerous_deserialization=True)
-
-
 
 def load_and_embed_user_policy(pdf_path):
     print(f"[INFO] Loading user policy PDF from: {pdf_path}")
@@ -44,8 +42,6 @@ def load_and_embed_user_policy(pdf_path):
 
 user_policy_db = load_and_embed_user_policy(USER_POLICY_PATH)
 
-
-
 print("[INFO] Loading compliance rules from JSON...")
 all_rules = []
 for rule_file in COMPLIANCE_RULE_FILES:
@@ -56,6 +52,41 @@ for rule_file in COMPLIANCE_RULE_FILES:
 print(f"[INFO] Loaded {len(all_rules)} compliance checks.")
 
 
+# ============ NEW PART: Ask user to choose category ============
+
+# Build list of available categories excluding COMMON
+all_categories = sorted(set(
+    rule["category"] for rule in all_rules if rule["category"] not in COMMON_CATEGORIES
+))
+
+print("\n======= AVAILABLE POLICY CATEGORIES =======")
+for idx, cat in enumerate(all_categories, 1):
+    print(f"{idx}. {cat}")
+
+while True:
+    try:
+        choice = int(input("\nSelect the category number for your policy: ")) - 1
+        if 0 <= choice < len(all_categories):
+            selected_category = all_categories[choice]
+            break
+        else:
+            print("Invalid choice. Try again.")
+    except ValueError:
+        print("Invalid input. Enter a number.")
+
+print(f"\n[INFO] Selected category: {selected_category}")
+print(f"[INFO] Common categories always included: {COMMON_CATEGORIES}")
+
+# Filter rules for selected category + common
+selected_rules = [
+    rule for rule in all_rules 
+    if rule["category"] == selected_category or rule["category"] in COMMON_CATEGORIES
+]
+
+print(f"[INFO] Total rules to check after filtering: {len(selected_rules)}")
+
+
+# ============ COMPLIANCE CHECKS ============
 
 def classify_similarity(score):
     if score >= SIMILARITY_THRESHOLD_COMPLIANT:
@@ -65,11 +96,10 @@ def classify_similarity(score):
     else:
         return "❌ Missing"
 
-
 results = []
 
-print("[INFO] Running compliance checks...\n")
-for rule in all_rules:
+print("\n[INFO] Running compliance checks...\n")
+for rule in selected_rules:
     query = rule["description"]
 
     # Search official IRDAI guideline DB
@@ -93,13 +123,9 @@ for rule in all_rules:
         "similarity_score": user_score
     })
 
-
-
 num_total = len(results)
 num_compliant = sum(1 for r in results if r["status"] == "✅ Compliant")
 compliance_score = (num_compliant / num_total) * 100
-
-
 
 print("\n======= COMPLIANCE CHECK RESULTS =======\n")
 for r in results:
@@ -122,8 +148,8 @@ for r in results:
         print(f"  Recommended Action: Add/clarify as per guideline → {r['official_guideline'][:200]}...")
         print("")
 
-#IRDAI_compliance_agent
-with open("IRDAI_compliance_agent/test2.txt", "w", encoding="utf-8") as f:
+# Save to text file
+with open("IRDAI_compliance_agent/test3_new.txt", "w", encoding="utf-8") as f:
     f.write("\n======= COMPLIANCE CHECK RESULTS =======\n\n")
     for r in results:
         f.write(f"[{r['id']}] {r['description']}\n")
@@ -143,4 +169,3 @@ with open("IRDAI_compliance_agent/test2.txt", "w", encoding="utf-8") as f:
         if r["status"] != "✅ Compliant":
             f.write(f"- [{r['id']}] {r['description']}\n")
             f.write(f"  Recommended Action: Add/clarify as per guideline → {r['official_guideline'][:200]}...\n\n")
-

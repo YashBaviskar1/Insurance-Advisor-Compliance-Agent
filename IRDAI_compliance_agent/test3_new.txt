@@ -1,0 +1,372 @@
+
+======= COMPLIANCE CHECK RESULTS =======
+
+[F1] Mandatory adoption of Standard Proposal Form & Policy Wordings
+  → Status: ✅ Compliant
+  → Similarity Score: 0.77
+  → Official Guideline Snippet: 6. Standard Proposal Form 
+ 
+While the Standard Proposal Form has been prescribed by these Guidelines, 
+insurers shall include questions relevant to i...
+  → User Policy Snippet: Standard Fire and Special Perils Policy (Commercial)                                                          Page 10 of 16 
+UIN: IRDAN134CP0010V01201...
+------------------------------------------------------
+[F2] Standard Key Features Document (KFD) and Prospectus to be used
+  → Status: ✅ Compliant
+  → Similarity Score: 0.77
+  → Official Guideline Snippet: 2. Standard Prospectus 2.Standard Prospectus 
+3. Standard Policy Wordings  
+(including eight  in-built cover s  
+apart from the basic cover) 
+3.Standa...
+  → User Policy Snippet: Standard Fire and Special Perils Policy (Commercial)                                                          Page 9 of 16 
+UIN: IRDAN134CP0010V012018...
+------------------------------------------------------
+[F3] Policy duration capped at 10 years for Bharat Griha Raksha
+  → Status: ✅ Compliant
+  → Similarity Score: 0.88
+  → Official Guideline Snippet: along with other required documents following the procedure required under the 
+extant Product Filing Guidelines. 
+ 
+8. Policy Duration 
+Bharat Griha ...
+  → User Policy Snippet: signed by or on behalf of the Company. 
+ 
+ 
+1) This Policy does not cover (not applicable to policies covering dwellings) 
+ 
+a) The first 5% of each a...
+------------------------------------------------------
+[F4] In-built covers: Loss of Rent, Debris removal, Architect’s fees
+  → Status: ❌ Missing
+  → Similarity Score: 0.48
+  → Official Guideline Snippet: __________________________________________________________________________________           
+Page 13 of 16 
+ 
+In-built Covers Bharat Sookshma 
+Udyam ...
+  → User Policy Snippet: 8) Expenses necessarily incurred on (i) Architects, Surveyors and Consulting Engineer's Fees and (ii) 
+Debris Removal by the Insured following a loss,...
+------------------------------------------------------
+[F5] Optional covers menu standardized across all insurers
+  → Status: ⚠️ Partial
+  → Similarity Score: 0.70
+  → Official Guideline Snippet: basic policy  and in -built covers ), Standard  Key Features Document  (KFD), 
+Special Clause (Agreed Bank Clause) as provided for herein shall be ado...
+  → User Policy Snippet: Standard Fire and Special Perils Policy (Commercial)                                                          Page 2 of 16 
+UIN: IRDAN134CP0010V012018...
+------------------------------------------------------
+[F6] Standard Agreed Bank Clause to be included where applicable
+  → Status: ⚠️ Partial
+  → Similarity Score: 0.67
+  → Official Guideline Snippet: basic policy  and in -built covers ), Standard  Key Features Document  (KFD), 
+Special Clause (Agreed Bank Clause) as provided for herein shall be ado...
+  → User Policy Snippet: Standard Fire and Special Perils Policy (Commercial)                                                          Page 4 of 16 
+UIN: IRDAN134CP0010V012018...
+------------------------------------------------------
+[FIR1] Dwellings must be covered on reinstatement/replacement value basis (not market value)
+  → Status: ⚠️ Partial
+  → Similarity Score: 0.51
+  → Official Guideline Snippet: 12.  Basis of Sum insured 
+ 
+12.1. All Building/ Structure, Plant & Machinery, Furniture & Fixtures shall be insured 
+on Reinstatement Value/Replaceme...
+  → User Policy Snippet: accepted the premium required for the renewal of the policy, the Company shall pay to the Insured the 
+value of the Property at the time of the happen...
+------------------------------------------------------
+[FIR2] Automatic home contents cover at 20% of building SI (max ₹10L) unless opted out
+  → Status: ⚠️ Partial
+  → Similarity Score: 0.64
+  → Official Guideline Snippet: by an amount representing 1/365 th of 10% of Sum Insured at the Policy 
+Commencement Date. 
+ 
+12.6 The Sum Insured for General  Home Contents shall be...
+  → User Policy Snippet: signed by or on behalf of the Company. 
+ 
+ 
+1) This Policy does not cover (not applicable to policies covering dwellings) 
+ 
+a) The first 5% of each a...
+------------------------------------------------------
+[FIR3] 10% annual auto-escalation of sum insured for long-term policies
+  → Status: ⚠️ Partial
+  → Similarity Score: 0.73
+  → Official Guideline Snippet: the Insured and spouse shall be available for a compensation amount of  
+₹ 5 Lakh per person. 
+ 
+ 
+12.4 For long-term policy, the Su m Insured for Bui...
+  → User Policy Snippet: to the full extent of the respective sum insured in consideration of which upon the settlement 
+of any loss under this policy, pro-rata premium for th...
+------------------------------------------------------
+[FIR4] Mandatory terrorism cover with IMTRIP wording and rates
+  → Status: ⚠️ Partial
+  → Similarity Score: 0.62
+  → Official Guideline Snippet: 11. Terrorism Cover 
+ 
+11.1. Cover against terrorism is in -built. Insurers shall attach the relevant clause 
+reflecting the standard wordings agreed ...
+  → User Policy Snippet: Standard Fire and Special Perils Policy (Commercial)                                                          Page 11 of 16 
+UIN: IRDAN134CP0010V01201...
+------------------------------------------------------
+[FIR5] Micro-business policies require professional indemnity cover
+  → Status: ⚠️ Partial
+  → Similarity Score: 0.64
+  → Official Guideline Snippet: Corporate 
+Agents, 
+Insurance 
+Web 
+Aggregators, 
+Insurance 
+Marketing 
+Firms 
+are 
+required 
+to 
+take Professional 
+Indemnity 
+Insurance 
+Policies 
+i...
+  → User Policy Snippet: signed by or on behalf of the Company. 
+ 
+ 
+1) This Policy does not cover (not applicable to policies covering dwellings) 
+ 
+a) The first 5% of each a...
+------------------------------------------------------
+[FIR6] Stock valuation: Raw materials (landed cost), WIP (input cost), Finished goods (manufacturing cost)
+  → Status: ✅ Compliant
+  → Similarity Score: 0.80
+  → Official Guideline Snippet: __________________________________________________________________________________           
+Page 11 of 16 
+ 
+compounds of Industrial/Manufacturing r...
+  → User Policy Snippet: 3. Confirmation of Reinstatement (in Case of RIV policy) 
+4. Last Three years Balance Sheets with Schedules 
+5. Current year Provisional Trading A/c a...
+------------------------------------------------------
+[CLM1] Nodal officers must coordinate with state administration for disaster claims
+  → Status: ✅ Compliant
+  → Similarity Score: 0.80
+  → Official Guideline Snippet: the state immediately and be in regular contact thereafter. 
+ 
+2. Similarly, a nodal officer  may be appointed in affected district to liaise with the...
+  → User Policy Snippet: Email : gro@universalsompo.com 
+For updated details of grievance officer, kindly refer the link 
+https://www.universalsompo.com/resourse-grievance-red...
+------------------------------------------------------
+[CLM2] Weekly claims reporting format for disaster victims
+  → Status: ⚠️ Partial
+  → Similarity Score: 0.66
+  → Official Guideline Snippet: (Name of Insurance Company) 
+ 
+ 
+Format for weekly reporting on heavy rainfall and flood related claims in Andhra 
+Pradesh/Telangana/Maharashtra/Karna...
+  → User Policy Snippet: clarification on the discrepancy observed on the basic settlement documents. In spite of our best effort, 
+if insured fails to respond for the basic d...
+------------------------------------------------------
+[CLM3] Grievance acknowledgement within 3 days, resolution within 15 days
+  → Status: ⚠️ Partial
+  → Similarity Score: 0.55
+  → Official Guideline Snippet: Settlement/rejection of Claim after 30 days
+receiving first/addendum survey report
+Acknowledge a grievance3 days
+Resolve a grievance 15 days
+15 days
+1...
+  → User Policy Snippet: ➢ Step 2 
+If the resolution you received, does not meet your expectations, you can directly write to our 
+Grievance Id. After examining the matter, th...
+------------------------------------------------------
+[CON1] Proposal form disclosures are basis of contract - material misstatement voids cover
+  → Status: ⚠️ Partial
+  → Similarity Score: 0.67
+  → Official Guideline Snippet: enter 
+into 
+any 
+contract 
+of 
+Insurance. 
+If 
+space 
+is 
+insufficient 
+to 
+answer 
+any 
+questions 
+fully, 
+please 
+attach 
+a 
+signed 
+continuation 
+...
+  → User Policy Snippet: clarification on the discrepancy observed on the basic settlement documents. In spite of our best effort, 
+if insured fails to respond for the basic d...
+------------------------------------------------------
+[CON2] Free look period: 15 days from policy receipt
+  → Status: ⚠️ Partial
+  → Similarity Score: 0.67
+  → Official Guideline Snippet: 10.19  Free look period 
+The Free Look Period shall be applicable at the inception of the Policy and not on renewals or at the time  
+of porting the p...
+  → User Policy Snippet: on 15 days' notice to that effect being given to the Insured, in which case the Company shall 
+be liable to repay on demand a ratable proportion of th...
+------------------------------------------------------
+[CON3] Integrated Grievance Management System (IGMS) access must be provided
+  → Status: ⚠️ Partial
+  → Similarity Score: 0.64
+  → Official Guideline Snippet: b. IRDAI Integrated Grievance Management System - https://igms.irda.gov.in/ 
+11...
+  → User Policy Snippet: Email : gro@universalsompo.com 
+For updated details of grievance officer, kindly refer the link 
+https://www.universalsompo.com/resourse-grievance-red...
+------------------------------------------------------
+
+======= SUMMARY =======
+✅ Total checks: 18
+✅ Compliant: 5
+⚠️  Score: 27.78%
+
+======= RECOMMENDATIONS =======
+- [F4] In-built covers: Loss of Rent, Debris removal, Architect’s fees
+  Recommended Action: Add/clarify as per guideline → __________________________________________________________________________________           
+Page 13 of 16 
+ 
+In-built Covers Bharat Sookshma 
+Udyam Suraksha 
+Bharat Laghu Udyam Suraksha 
+Additions, ...
+
+- [F5] Optional covers menu standardized across all insurers
+  Recommended Action: Add/clarify as per guideline → basic policy  and in -built covers ), Standard  Key Features Document  (KFD), 
+Special Clause (Agreed Bank Clause) as provided for herein shall be adopted 
+by all insurers. 
+ 
+3.8. No insurer shall ch...
+
+- [F6] Standard Agreed Bank Clause to be included where applicable
+  Recommended Action: Add/clarify as per guideline → basic policy  and in -built covers ), Standard  Key Features Document  (KFD), 
+Special Clause (Agreed Bank Clause) as provided for herein shall be adopted 
+by all insurers. 
+ 
+3.8. No insurer shall ch...
+
+- [FIR1] Dwellings must be covered on reinstatement/replacement value basis (not market value)
+  Recommended Action: Add/clarify as per guideline → 12.  Basis of Sum insured 
+ 
+12.1. All Building/ Structure, Plant & Machinery, Furniture & Fixtures shall be insured 
+on Reinstatement Value/Replacement Value basis only. There is no option 
+to insure...
+
+- [FIR2] Automatic home contents cover at 20% of building SI (max ₹10L) unless opted out
+  Recommended Action: Add/clarify as per guideline → by an amount representing 1/365 th of 10% of Sum Insured at the Policy 
+Commencement Date. 
+ 
+12.6 The Sum Insured for General  Home Contents shall be automatically taken as 
+20% of the Sum Insured of...
+
+- [FIR3] 10% annual auto-escalation of sum insured for long-term policies
+  Recommended Action: Add/clarify as per guideline → the Insured and spouse shall be available for a compensation amount of  
+₹ 5 Lakh per person. 
+ 
+ 
+12.4 For long-term policy, the Su m Insured for Building  of Bharat Griha Raksha  
+shall aut o escala...
+
+- [FIR4] Mandatory terrorism cover with IMTRIP wording and rates
+  Recommended Action: Add/clarify as per guideline → 11. Terrorism Cover 
+ 
+11.1. Cover against terrorism is in -built. Insurers shall attach the relevant clause 
+reflecting the standard wordings agreed upon in the Indian Market Terrorism 
+Risk Insuranc...
+
+- [FIR5] Micro-business policies require professional indemnity cover
+  Recommended Action: Add/clarify as per guideline → Corporate 
+Agents, 
+Insurance 
+Web 
+Aggregators, 
+Insurance 
+Marketing 
+Firms 
+are 
+required 
+to 
+take Professional 
+Indemnity 
+Insurance 
+Policies 
+in 
+order 
+to 
+get 
+themselves 
+indemnified 
+from 
+...
+
+- [CLM2] Weekly claims reporting format for disaster victims
+  Recommended Action: Add/clarify as per guideline → (Name of Insurance Company) 
+ 
+ 
+Format for weekly reporting on heavy rainfall and flood related claims in Andhra 
+Pradesh/Telangana/Maharashtra/Karnataka and Consolidated report. 
+ 
+Status as on Date...
+
+- [CLM3] Grievance acknowledgement within 3 days, resolution within 15 days
+  Recommended Action: Add/clarify as per guideline → Settlement/rejection of Claim after 30 days
+receiving first/addendum survey report
+Acknowledge a grievance3 days
+Resolve a grievance 15 days
+15 days
+1918
+~~ (i;'! J}fm Bemfsafft 
+-
+~ Ima, ~ /Jsaat 
+-...
+
+- [CON1] Proposal form disclosures are basis of contract - material misstatement voids cover
+  Recommended Action: Add/clarify as per guideline → enter 
+into 
+any 
+contract 
+of 
+Insurance. 
+If 
+space 
+is 
+insufficient 
+to 
+answer 
+any 
+questions 
+fully, 
+please 
+attach 
+a 
+signed 
+continuation 
+sheet. 
+2. 
+All 
+facts 
+material 
+to 
+the 
+propose...
+
+- [CON2] Free look period: 15 days from policy receipt
+  Recommended Action: Add/clarify as per guideline → 10.19  Free look period 
+The Free Look Period shall be applicable at the inception of the Policy and not on renewals or at the time  
+of porting the policy. 
+The insured shall be allowed a period of f...
+
+- [CON3] Integrated Grievance Management System (IGMS) access must be provided
+  Recommended Action: Add/clarify as per guideline → b. IRDAI Integrated Grievance Management System - https://igms.irda.gov.in/ 
+11...
+
