@@ -1,0 +1,43 @@
+[
+  {"id": "H1",  "description": "Waiting period for pre-existing diseases ≤ 48 months",                 "category": "Health"},
+  {"id": "H2",  "description": "Coverage of day-care procedures under cashless and reimbursement",    "category": "Health"},
+  {"id": "H3",  "description": "AYUSH treatment coverage with specified sub-limits",                  "category": "Health"},
+  {"id": "H4",  "description": "Minimum sum insured ≥ ₹5 L for individual health products",          "category": "Health"},
+  {"id": "H5",  "description": "Co-payment, if any, clearly disclosed in policy schedule",           "category": "Health"},
+  {"id": "H6",  "description": "Standard definitions (e.g., ‘Hospitalization’, ‘ICU Charges’)",        "category": "Health"},
+  {"id": "H7",  "description": "Portability/migration of credits for waiting periods & exclusions",   "category": "Health"},
+
+  {"id": "F1",  "description": "Mandatory adoption of Standard Proposal Form & Policy Wordings",       "category": "Fire"},
+  {"id": "F2",  "description": "Standard Key Features Document (KFD) and Prospectus to be used",      "category": "Fire"},
+  {"id": "F3",  "description": "Policy duration capped at 10 years for Bharat Griha Raksha",           "category": "Fire"},
+  {"id": "F4",  "description": "In-built covers: Loss of Rent, Debris removal, Architect’s fees",     "category": "Fire"},
+  {"id": "F5",  "description": "Optional covers menu standardized across all insurers",                "category": "Fire"},
+  {"id": "F6",  "description": "Standard Agreed Bank Clause to be included where applicable",          "category": "Fire"},
+
+  {"id": "M1",  "description": "Eligibility conditions for appointment of Motor Insurance Service Providers", "category": "Motor"},
+  {"id": "M2",  "description": "Appointment letter in prescribed format based on dealer’s PAN",         "category": "Motor"},
+  {"id": "M3",  "description": "Roles & responsibilities of sponsoring entity and MISP",             "category": "Motor"},
+  {"id": "M4",  "description": "Training & exam requirements for MISPs (Point-of-Sale certification)", "category": "Motor"},
+  {"id": "M5",  "description": "Maintenance of records for minimum 7 years post-policy or termination", "category": "Motor"},
+  {"id": "M6",  "description": "Annual review of MISP operations by sponsoring entity",                  "category": "Motor"},
+  {"id": "M7",  "description": "Renewal/cancellation conditions and right to revoke appointment",   "category": "Motor"},
+
+  {"id": "L1",  "description": "Appointment of state/district nodal officers for flood victims",         "category": "Life-Flood"},
+  {"id": "L2",  "description": "Simplified death-claim procedures when death certificate unavailable",  "category": "Life-Flood"},
+  {"id": "L3",  "description": "Weekly state-wise claim reporting in prescribed format",             "category": "Life-Flood"},
+  {"id": "L4",  "description": "Encourage e-modes for claims to limit COVID-19 exposure",             "category": "Life-Flood"},
+  {"id": "L5",  "description": "Set up special camps and publicize claim-filing offices/media outreach", "category": "Life-Flood"},
+
+  {"id": "P1",  "description": "Standard Professional Indemnity cover for brokers/agents/web-aggregators", "category": "Brokers"},
+  {"id": "P2",  "description": "Mandatory covers: breach of duty, fraud, dishonesty, legal costs",   "category": "Brokers"},
+  {"id": "P3",  "description": "Retroactive date = date of IRDAI registration; no break in continuity",   "category": "Brokers"},
+  {"id": "P4",  "description": "Penalty for break in continuity: base rate + 5% repo rate",             "category": "Brokers"},
+  {"id": "P5",  "description": "Standard Proposal Form & Policy Form prescribed by guideline",        "category": "Brokers"},
+
+  {"id": "G1",  "description": "Max 30-day grace period for premium renewal without loss of benefits", "category": "General Products"},
+  {"id": "G2",  "description": "Standard Prospectus, KFD and product filing templates (Mar 2021)",       "category": "General Products"},
+  {"id": "G3",  "description": "Packaging of mandatory clauses & minimum benefits for all products",   "category": "General Products"},
+  {"id": "G4",  "description": "Standard Personal Accident (Saral) product definitions & exclusions",  "category": "General Products"},
+  {"id": "G5",  "description": "Information & Cyber Security framework for insurers (2023)",           "category": "General Products"},
+  {"id": "G6",  "description": "Master AML/CFT controls & reporting for all IRDAI-regulated entities",  "category": "General Products"}
+]
