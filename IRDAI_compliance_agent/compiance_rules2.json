@@ -1,0 +1,41 @@
+[
+  {"id": "MOT1", "description": "Third-party premium rates must follow prescribed base rates by vehicle category", "category": "Motor"},
+  {"id": "MOT2", "description": "15% discount on TP premium for electric vehicles (cars, two-wheelers, commercial vehicles)", "category": "Motor"},
+  {"id": "MOT3", "description": "7.5% discount on TP premium for hybrid electric vehicles", "category": "Motor"},
+  {"id": "MOT4", "description": "50% discounted rate for vintage cars based on IMT", "category": "Motor"},
+  {"id": "MOT5", "description": "Long-term premium rates for new private cars (3 years) and two-wheelers (5 years)", "category": "Motor"},
+
+  {"id": "FIR1", "description": "Dwellings must be covered on reinstatement/replacement value basis (not market value)", "category": "Fire"},
+  {"id": "FIR2", "description": "Automatic home contents cover at 20% of building SI (max ₹10L) unless opted out", "category": "Fire"},
+  {"id": "FIR3", "description": "10% annual auto-escalation of sum insured for long-term policies", "category": "Fire"},
+  {"id": "FIR4", "description": "Mandatory terrorism cover with IMTRIP wording and rates", "category": "Fire"},
+  {"id": "FIR5", "description": "Micro-business policies require professional indemnity cover", "category": "Fire"},
+  {"id": "FIR6", "description": "Stock valuation: Raw materials (landed cost), WIP (input cost), Finished goods (manufacturing cost)", "category": "Fire"},
+
+  {"id": "MSP1", "description": "MISP must offer choice of insurers and disclose premium rates", "category": "Service Provider"},
+  {"id": "MSP2", "description": "Max distribution fees: 22.5% (two-wheelers), 19.5% (other vehicles) of OD premium", "category": "Service Provider"},
+  {"id": "MSP3", "description": "Designated person must be 12th pass with POSP training", "category": "Service Provider"},
+  {"id": "MSP4", "description": "Daily transfer of policyholder data and vehicle registration details to insurers", "category": "Service Provider"},
+
+  {"id": "LIF1", "description": "15-day free look period with refund of fund value minus expenses", "category": "Life"},
+  {"id": "LIF2", "description": "Death claim settlement within 30 days (without investigation)", "category": "Life"},
+  {"id": "LIF3", "description": "Simplified claim process for disaster victims when death certificates unavailable", "category": "Life"},
+  {"id": "LIF4", "description": "ULIPs must disclose all charges: allocation, mortality, fund management, surrender", "category": "Life"},
+  {"id": "LIF5", "description": "5-year lock-in period for ULIPs with revival options", "category": "Life"},
+
+
+  {"id": "PI1", "description": "Mandatory PI cover for brokers/agents with retroactive date from registration", "category": "Professional Indemnity"},
+  {"id": "PI2", "description": "Deductible = 2% of capital employed by policyholder", "category": "Professional Indemnity"},
+  {"id": "PI3", "description": "Coverage for employee fraud/dishonesty (non-perpetrator insureds)", "category": "Professional Indemnity"},
+  {"id": "PI4", "description": "Penalty for coverage gap: Base rate + 5% over repo rate", "category": "Professional Indemnity"},
+
+
+  {"id": "CLM1", "description": "Nodal officers must coordinate with state administration for disaster claims", "category": "Claims"},
+  {"id": "CLM2", "description": "Weekly claims reporting format for disaster victims", "category": "Claims"},
+  {"id": "CLM3", "description": "Grievance acknowledgement within 3 days, resolution within 15 days", "category": "Claims"},
+  
+
+  {"id": "CON1", "description": "Proposal form disclosures are basis of contract - material misstatement voids cover", "category": "Consumer Rights"},
+  {"id": "CON2", "description": "Free look period: 15 days from policy receipt", "category": "Consumer Rights"},
+  {"id": "CON3", "description": "Integrated Grievance Management System (IGMS) access must be provided", "category": "Consumer Rights"}
+]

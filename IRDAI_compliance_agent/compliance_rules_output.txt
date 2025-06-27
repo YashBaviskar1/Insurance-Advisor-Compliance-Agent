@@ -1,0 +1,20 @@
+
+
+1. Specific Contents coverage
+2. Risk details
+3. In-built Cover details
+4. Details of standard add-ons
+5. Details of innovative add-ons, as applicable
+6. Policy Deductible
+7. Premium collected
+8. Sum Insured details
+9. Policy Duration
+10. Details of products (Personal Lines, Commercial Motor, Aviation, Marine, Fire & Engg, Other Property, Liability, Others, Reinsurance)
+11. Disclosures (Only approved features by the Authority can be shared with the policyholder)
+12. Business split representation of the Firm's business over the previous three years
+13. Substantial changes in the % amounts of the business split likely during the next 12 months
+14. Claims handling (amendment, endorsement, modification, renewal, cancellation, extension, claim service delivery)
+15. Any other service specifically permitted by the Authority
+16. Exposure, Premium, Number of claims, Incurred claims, Claim frequency, Average cost per claim, Burning cost, No. of policies renewed, Retention Ratio, Total Renewal Premium Income, No of lives covered, Total Sum Insured, Total Renewal Premium Ceded, Reinsurance Commissions Received, In-force Business Data (No. of policies)
+
+The compliance requirements extracted from the IRDAI guideline excerpts include specific details about the insurance policy, such as sum insured, specific contents coverage, risk details, in-built cover details, details of standard and innovative add-ons, policy deductible, premium collected, policy duration, and product details. Additionally, the guidelines require disclosures, business split representation, claims handling, and various financial data such as exposure, premium, number of claims, incurred claims, claim frequency, average cost per claim, burning cost, number of policies renewed, retention ratio, total renewal premium income, number of lives covered, total sum insured, total renewal premium ceded, reinsurance commissions received, and in-force business data.
