@@ -1,0 +1,16 @@
+FROM python:3.10-slim
+
+# Set the working directory
+WORKDIR /app
+
+# Copy your app code
+COPY . /app
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Expose the port Streamlit uses
+EXPOSE 7860
+
+# Run Streamlit
+CMD ["streamlit", "run", "app.py", "--server.port=7860", "--server.address=0.0.0.0"]

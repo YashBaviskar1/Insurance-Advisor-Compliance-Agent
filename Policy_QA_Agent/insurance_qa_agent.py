@@ -1,5 +1,4 @@
 import os
-from dotenv import load_dotenv
 
 # LangChain imports for loading PDFs and splitting
 from langchain_community.document_loaders import PyPDFLoader, DirectoryLoader
@@ -23,8 +22,12 @@ DB_PATH = "vectorstore/db_faiss_user_data"
 EMBEDDING_MODEL_NAME = "BAAI/bge-base-en-v1.5"
 
 # Load environment variables
-load_dotenv()
+
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
+if GROQ_API_KEY is None:
+    from dotenv import load_dotenv
+    load_dotenv()
+    GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
 GROQ_MODEL_NAME = "meta-llama/llama-4-scout-17b-16e-instruct"
 
 # ---------------------------
