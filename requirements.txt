@@ -35,7 +35,7 @@ jsonschema==4.23.0
 jsonschema-specifications==2024.10.1
 langchain==0.3.15
 langchain-community==0.3.15
-langchain-core==0.3.15
+langchain-core==0.3.31
 langchain-groq==0.3.4
 langchain-huggingface==0.1.2
 langchain-text-splitters==0.3.5
