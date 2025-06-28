@@ -3,7 +3,7 @@ from IRDAI_compliance_agent import compliance_agent
 from Policy_QA_Agent import insurance_qa_agent 
 import tempfile
 import os
-
+from Insurance_Needs_Advisor import needs_advisor
 # -----------------------------------------
 # Page metadata
 # -----------------------------------------
@@ -65,7 +65,7 @@ with st.sidebar:
     st.title("🗂️ Navigation")
     app_mode = st.radio(
         "Choose a module:",
-        ["IRDAI Compliance Checker", "Policy QA Agent"]
+        ["IRDAI Compliance Checker", "Policy QA Agent", "Insurance Need Advisor"]
     )
     st.markdown("---")
     st.markdown("**ℹ️ About this app**")
@@ -218,6 +218,70 @@ elif app_mode == "Policy QA Agent":
             3. Ask specific questions about clauses, coverage, exclusions, etc.  
             4. Get AI-powered answers instantly.  
         """)
+elif app_mode == "Insurance Need Advisor":
+    st.markdown('<div class="section-header">📌 Insurance Needs Advisor</div>', unsafe_allow_html=True)
+
+    st.markdown("""
+        Fill in your details below to get personalized insurance recommendations
+        with real example products and an analysis of your coverage adequacy.
+    """)
+
+    # 1️⃣ User profile input form
+    with st.form("advisor_form"):
+        col1, col2 = st.columns(2)
+        with col1:
+            age = st.number_input("Age", min_value=18, max_value=100, value=30)
+            income = st.number_input("Annual Income (INR)", min_value=0, step=50000, value=500000)
+            assets = st.text_input("Key Assets (comma-separated)", value="car, house")
+        with col2:
+            dependents = st.number_input("Number of Dependents", min_value=0, value=2)
+            health_conditions = st.text_area("Health Conditions (if any)", value="none")
+            location = st.text_input("City / Location", value="Mumbai")
+        
+        submitted = st.form_submit_button("🛡️ Get Recommendation")
+
+    if submitted:
+        with st.spinner("🤖 Analyzing your profile and generating recommendations..."):
+            # Call your advisor function
+            response_text = needs_advisor.get_insurance_recommendation(
+                age=age,
+                dependents=dependents,
+                income=income,
+                assets=assets,
+                health_conditions=health_conditions,
+                location=location
+            )
+
+        # 2️⃣ Display raw recommendation text
+        st.subheader("Recommendation & Justification")
+        st.markdown(response_text)
+
+        # 3️⃣ Extract and parse Scores
+        import re
+        import json
+
+        def extract_scores(text):
+            match = re.search(r"Scores:\s*(\[.*\])", text, re.DOTALL)
+            if match:
+                scores_text = match.group(1)
+                # Replace [ and ] with { and }
+                scores_text = scores_text.replace("[", "{").replace("]", "}")
+                try:
+                    return json.loads(scores_text)
+                except json.JSONDecodeError:
+                    return None
+            return None
+
+        scores = extract_scores(response_text)
+
+        # 4️⃣ Show coverage adequacy progress bars
+        if scores:
+            st.subheader("📊 Coverage Adequacy")
+            for coverage_type, score in scores.items():
+                coverage_label = coverage_type.capitalize() + " Coverage"
+                st.progress(score, text=f"{coverage_label}: {int(score * 100)}% adequate")
+        else:
+            st.info("⚠️ No coverage adequacy scores were found in the recommendation. Please review the recommendation text.")
 
 # -----------------------------------------
 # Footer
