@@ -1,12 +1,14 @@
-from needs_advisor import get_insurance_recommendation
 
-response = get_insurance_recommendation(
-    age="35",
-    dependents="2 children, mom 65 years old dad 70 years old",
-    income="12 lakh INR annual",
-    assets="1 bhk house only",
-    health_conditions="dibetes type 1",
-    location="Guwahati"
-)
+from insurance_recommender import InsuranceRecommender
+recommender = InsuranceRecommender("Insurance_Needs_Advisor/policies.csv")
 
-print(response)
+user_profile = {
+    "age": 35,
+    "income": 90000,
+    "needs": ["Health", "Term Life"],
+    "max_premium": 2000
+}
+
+top_policies = recommender.recommend(user_profile)
+print(top_policies[["Name", "Type", "Annual Premium", "Sum Assured", "Eligibility Notes", "Score"]])
+

@@ -4,6 +4,8 @@ from Policy_QA_Agent import insurance_qa_agent
 import tempfile
 import os
 from Insurance_Needs_Advisor import needs_advisor
+from Insurance_Needs_Advisor.insurance_recommender import InsuranceRecommender
+recommender = InsuranceRecommender("Insurance_Needs_Advisor/policies.csv")
 # -----------------------------------------
 # Page metadata
 # -----------------------------------------
@@ -223,10 +225,10 @@ elif app_mode == "Insurance Need Advisor":
 
     st.markdown("""
         Fill in your details below to get personalized insurance recommendations
-        with real example products and an analysis of your coverage adequacy.
+        with real example products and analysis.
     """)
 
-    # 1️⃣ User profile input form
+    # User profile input form
     with st.form("advisor_form"):
         col1, col2 = st.columns(2)
         with col1:
@@ -237,51 +239,76 @@ elif app_mode == "Insurance Need Advisor":
             dependents = st.number_input("Number of Dependents", min_value=0, value=2)
             health_conditions = st.text_area("Health Conditions (if any)", value="none")
             location = st.text_input("City / Location", value="Mumbai")
+
+        needs = st.multiselect(
+            "Insurance Types you want to consider", 
+            ["Health", "Term Life", "Accident", "Life", "Accident/Term Life", "Life/Accident", "Health/Maternity"], 
+            default=["Health", "Term Life"]
+        )
         
+        max_premium = st.number_input("Maximum Annual Premium (INR)", min_value=0, value=2000, step=500)
+
         submitted = st.form_submit_button("🛡️ Get Recommendation")
 
     if submitted:
         with st.spinner("🤖 Analyzing your profile and generating recommendations..."):
-            # Call your advisor function
-            response_text = needs_advisor.get_insurance_recommendation(
-                age=age,
-                dependents=dependents,
-                income=income,
-                assets=assets,
-                health_conditions=health_conditions,
-                location=location
-            )
+            user_profile = {
+                "age": age,
+                "income": income,
+                "needs": needs,
+                "max_premium": max_premium
+            }
 
-        # 2️⃣ Display raw recommendation text
-        st.subheader("Recommendation & Justification")
-        st.markdown(response_text)
+        recommendations = recommender.recommend(user_profile)
 
-        # 3️⃣ Extract and parse Scores
-        import re
-        import json
+        advice_text = needs_advisor.get_insurance_recommendation(
+            age=age,
+            dependents=dependents,
+            income=income,
+            assets=assets,
+            health_conditions=health_conditions,
+            location=location
+        )
 
-        def extract_scores(text):
-            match = re.search(r"Scores:\s*(\[.*\])", text, re.DOTALL)
-            if match:
-                scores_text = match.group(1)
-                # Replace [ and ] with { and }
-                scores_text = scores_text.replace("[", "{").replace("]", "}")
-                try:
-                    return json.loads(scores_text)
-                except json.JSONDecodeError:
-                    return None
-            return None
+    # ✅ Show the LLM *advice text* FIRST
+    st.success("✅ Personalized Insurance Needs Analysis & Advice")
+    st.markdown(advice_text)
+    import re
+    import json
 
-        scores = extract_scores(response_text)
+    def extract_scores(text):
+        match = re.search(r"Scores:\s*(\[.*\])", text, re.DOTALL)
+        if match:
+            raw = match.group(1)
+            # Heuristic fix for broken format
+            if ":" in raw and "{" not in raw:
+                # Convert: [ "a": 0.8, "b": 0.9 ]  -> [ { "a": 0.8, "b": 0.9 } ]
+                raw = "[{" + raw.strip()[1:-1] + "}]"
+            try:
+                return ast.literal_eval(raw)
+            except Exception:
+                return None
+        return None
+    scores = extract_scores(advice_text)
 
         # 4️⃣ Show coverage adequacy progress bars
-        if scores:
-            st.subheader("📊 Coverage Adequacy")
-            for coverage_type, score in scores.items():
-                coverage_label = coverage_type.capitalize() + " Coverage"
-                st.progress(score, text=f"{coverage_label}: {int(score * 100)}% adequate")
-        else:
+    if scores:
+        st.subheader("📊 Coverage Adequacy")
+        for coverage_type, score in scores.items():
+            coverage_label = coverage_type.capitalize() + " Coverage"
+            st.progress(score, text=f"{coverage_label}: {int(score * 100)}% adequate")
+    else:
             st.info("⚠️ No coverage adequacy scores were found in the recommendation. Please review the recommendation text.")
+    if recommendations.empty:
+        st.warning("⚠️ Sorry! No matching policies were found for your profile.")
+    else:
+        st.subheader("📋 Recommended Insurance Policies")
+        st.dataframe(
+            recommendations[[
+                "Name", "Type", "Annual Premium", "Sum Assured", "Eligibility Notes", "Score"
+            ]].reset_index(drop=True),
+            use_container_width=True
+        )
 
 # -----------------------------------------
 # Footer
