@@ -82,6 +82,7 @@ def load_policy_store(persist_dir: str = "vectorstore/db_faiss_policy_coverage_a
     store = FAISS.load_local(persist_dir, embedding_fn, allow_dangerous_deserialization=True)
     return store
 
+
 def get_gap_recommendations(user_profile: dict, policy_store: FAISS) -> None:
     location_risk = get_location_risk(user_profile.get("location", ""))
     docs = policy_store.similarity_search(query="coverage terms", k=5)

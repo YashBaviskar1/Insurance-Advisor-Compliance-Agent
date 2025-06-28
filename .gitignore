@@ -6,3 +6,4 @@ IRDAI_compliance_agent/uploads/
 Policy_QA_Agent/uploads
 Insurance_Needs_Advisor/.env
 Policy_Coverage_Agent/.env
+Policy_Coverage_Agent/uploads/

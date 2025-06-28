@@ -5,6 +5,11 @@ import tempfile
 import os
 from Insurance_Needs_Advisor import needs_advisor
 from Insurance_Needs_Advisor.insurance_recommender import InsuranceRecommender
+from Policy_Coverage_Agent.gap_coverage import ingest_policies_from_directory, load_policy_store, get_gap_recommendations
+
+import re
+import json
+import ast
 recommender = InsuranceRecommender("Insurance_Needs_Advisor/policies.csv")
 # -----------------------------------------
 # Page metadata
@@ -67,7 +72,7 @@ with st.sidebar:
     st.title("🗂️ Navigation")
     app_mode = st.radio(
         "Choose a module:",
-        ["IRDAI Compliance Checker", "Policy QA Agent", "Insurance Need Advisor"]
+        ["IRDAI Compliance Checker", "Policy QA Agent", "Insurance Need Advisor", "Policy Coverage Agent"]
     )
     st.markdown("---")
     st.markdown("**ℹ️ About this app**")
@@ -97,6 +102,7 @@ if app_mode == "IRDAI Compliance Checker":
             "user_policy_db" not in st.session_state or
             st.session_state.get("uploaded_file_name") != uploaded_file.name
         ):
+
             with st.spinner("🔍 Processing your document..."):
                 with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp_file:
                     tmp_file.write(uploaded_file.read())
@@ -271,44 +277,164 @@ elif app_mode == "Insurance Need Advisor":
         )
 
     # ✅ Show the LLM *advice text* FIRST
-    st.success("✅ Personalized Insurance Needs Analysis & Advice")
-    st.markdown(advice_text)
-    import re
-    import json
+        st.success("✅ Personalized Insurance Needs Analysis & Advice")
+        st.markdown(advice_text)
+        import re
+        import json
 
-    def extract_scores(text):
-        match = re.search(r"Scores:\s*(\[.*\])", text, re.DOTALL)
-        if match:
-            raw = match.group(1)
-            # Heuristic fix for broken format
-            if ":" in raw and "{" not in raw:
-                # Convert: [ "a": 0.8, "b": 0.9 ]  -> [ { "a": 0.8, "b": 0.9 } ]
-                raw = "[{" + raw.strip()[1:-1] + "}]"
-            try:
-                return ast.literal_eval(raw)
-            except Exception:
-                return None
-        return None
-    scores = extract_scores(advice_text)
+        def extract_scores(text):
+            match = re.search(r"Scores:\s*(\[.*\])", text, re.DOTALL)
+            if match:
+                raw = match.group(1)
+                # Heuristic fix for broken format
+                if ":" in raw and "{" not in raw:
+                    # Convert: [ "a": 0.8, "b": 0.9 ]  -> [ { "a": 0.8, "b": 0.9 } ]
+                    raw = "[{" + raw.strip()[1:-1] + "}]"
+                try:
+                    return ast.literal_eval(raw)
+                except Exception:
+                    return None
+            return None
+        scores = extract_scores(advice_text)
 
         # 4️⃣ Show coverage adequacy progress bars
-    if scores:
-        st.subheader("📊 Coverage Adequacy")
-        for coverage_type, score in scores.items():
-            coverage_label = coverage_type.capitalize() + " Coverage"
-            st.progress(score, text=f"{coverage_label}: {int(score * 100)}% adequate")
-    else:
-            st.info("⚠️ No coverage adequacy scores were found in the recommendation. Please review the recommendation text.")
-    if recommendations.empty:
-        st.warning("⚠️ Sorry! No matching policies were found for your profile.")
-    else:
-        st.subheader("📋 Recommended Insurance Policies")
-        st.dataframe(
-            recommendations[[
-                "Name", "Type", "Annual Premium", "Sum Assured", "Eligibility Notes", "Score"
-            ]].reset_index(drop=True),
-            use_container_width=True
-        )
+        if scores:
+            st.subheader("📊 Coverage Adequacy")
+            for coverage_type, score in scores:
+                coverage_label = coverage_type.capitalize() + " Coverage"
+                st.progress(score, text=f"{coverage_label}: {int(score * 100)}% adequate")
+        else:
+                st.info("⚠️ No coverage adequacy scores were found in the recommendation. Please review the recommendation text.")
+        if recommendations.empty:
+            st.warning("⚠️ Sorry! No matching policies were found for your profile.")
+        else:
+            st.subheader("📋 Recommended Insurance Policies")
+            st.dataframe(
+                recommendations[[
+                    "Name", "Type", "Annual Premium", "Sum Assured", "Eligibility Notes", "Score"
+                ]].reset_index(drop=True),
+                use_container_width=True
+            )
+# -----------------------------------------
+# Policy Coverage Agent Module
+# -----------------------------------------
+
+elif app_mode == "Policy Coverage Agent":
+    st.markdown('<div class="section-header">📌 Policy Coverage Gap Analysis</div>', unsafe_allow_html=True)
+    st.markdown("""
+        Provide your personal and risk profile details below to analyze potential coverage gaps and receive recommendations.
+        You can also upload your existing policy PDFs (optional) to include them in the analysis.
+    """)
+
+    st.subheader("Optional: Upload Your Existing Policy PDFs")
+    uploaded_pdfs = st.file_uploader(
+        "Upload one or more PDF files (optional)", 
+        type=["pdf"], 
+        accept_multiple_files=True
+    )
+
+    if uploaded_pdfs:
+        with st.spinner(" Saving and ingesting your uploaded policies..."):
+            with tempfile.TemporaryDirectory() as tmp_dir:
+                for pdf_file in uploaded_pdfs:
+                    file_path = os.path.join(tmp_dir, pdf_file.name)
+                    with open(file_path, "wb") as f:
+                        f.write(pdf_file.read())
+
+                try:
+                    num_ingested = ingest_policies_from_directory(tmp_dir)
+                    st.success(f"✅ Ingested {num_ingested} policies from your uploaded PDFs.")
+                except Exception as e:
+                    st.error(f"❌ Error ingesting policies: {e}")
+
+    st.subheader("User Profile Inputs")
+    age = st.number_input("Age", min_value=0, max_value=120, value=22)
+    num_dep = st.number_input("Number of Dependents", min_value=0, max_value=10, value=3)
+    dependents = []
+    for i in range(num_dep):
+        st.write(f"Dependent #{i+1}")
+        relation = st.text_input(f"Relation {i+1}", value="parent", key=f"rel{i}")
+        dep_age = st.number_input(f"Age {i+1}", min_value=0, max_value=120, value=50, key=f"age{i}")
+        dependents.append({"relation": relation, "age": dep_age})
+
+    income = st.text_input("Income (e.g. 500000)", "500000")
+    assets = st.text_input("Assets (comma-separated)", "scooter").split(",")
+    health_conditions = st.text_input("Health Conditions (comma-separated)", "").split(",")
+    location = st.selectbox("Location", [
+        "Mumbai","Delhi","Chennai","Kerala","Kolkata",
+        "Bangalore","Hyderabad","Pune","Ahmedabad","Guwahati","Lucknow","Patna"
+    ])
+    occupation = st.text_input("Occupation", "Student")
+
+    st.subheader("Risk Factors (auto-derived)")
+    flood_zone = st.checkbox("Flood Zone", value=True)
+    earthquake_zone = st.slider("Earthquake Zone (1-5)", 1, 5, 3)
+    high_pollution = st.checkbox("High Pollution", value=False)
+
+    if st.button("Analyze Coverage Gaps"):
+        user_profile = {
+            "age": age,
+            "dependents": dependents,
+            "income": income,
+            "assets": [a.strip() for a in assets if a.strip()],
+            "health_conditions": [h.strip() for h in health_conditions if h.strip()],
+            "location": location,
+            "occupation": occupation,
+            "risk_factors": {
+                "flood_zone": flood_zone,
+                "earthquake_zone": earthquake_zone,
+                "high_pollution": high_pollution
+            }
+        }
+
+        with st.spinner("🔎 Loading policy database..."):
+            policy_store = load_policy_store()
+
+        try:
+            result = get_gap_recommendations(user_profile, policy_store)
+            # Try parsing if string
+            if isinstance(result, str):
+                try:
+                    result = json.loads(result)
+                except Exception:
+                    try:
+                        result = ast.literal_eval(result)
+                    except Exception:
+                        st.error("❌ Could not parse result to JSON or Python dict.")
+                        result = None
+        except ValueError as e:
+            st.error(f"❌ Error in analysis: {e}")
+            result = None
+
+        if result:
+            try:
+                st.subheader(f"Risk Score: {result.get('risk_score',0)*100:.0f}/100")
+                st.markdown("---")
+
+                st.subheader("Rule-based Gaps")
+                for gap in result.get('rule_based_gaps', []):
+                    st.error(gap)
+
+                st.subheader("Inference-Agent based Rules")
+                for gap in result.get('llm_gaps', []):
+                    st.warning(gap)
+
+                st.subheader(" Priority Gaps")
+                for gap in result.get('priority_gaps', []):
+                    st.success(gap)
+
+                st.subheader("Recommendations")
+                for rec in result.get('recommendations', []):
+                    if isinstance(rec, dict):
+                        st.markdown(f"**{rec.get('type','').title()}** — *{rec.get('example','')}*\n> {rec.get('justification','')}")
+                    else:
+                        st.markdown(f"- {rec}")
+
+                st.balloons()
+            except Exception as e:
+                st.error(f"❌ Error displaying results: {e}")
+        else:
+            st.warning("⚠️ No valid result returned. Please check your inputs or try again later.")
 
 # -----------------------------------------
 # Footer
