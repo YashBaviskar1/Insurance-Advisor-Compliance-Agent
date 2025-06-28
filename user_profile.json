@@ -1,0 +1,29 @@
+{
+    "age": 22,
+    "dependents": [
+        {
+            "relation": "spouse",
+            "age": 21
+        },
+        {
+            "relation": "parent",
+            "age": 50
+        },
+        {
+            "relation": "parent",
+            "age": 35
+        }
+    ],
+    "income": "500000",
+    "assets": [
+        "scooter"
+    ],
+    "health_conditions": [],
+    "location": "Mumbai",
+    "occupation": "Student",
+    "risk_factors": {
+        "flood_zone": true,
+        "earthquake_zone": 3,
+        "high_pollution": false
+    }
+}

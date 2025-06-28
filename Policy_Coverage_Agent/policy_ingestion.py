@@ -3,7 +3,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 
-CONTEXT_PATH = "Policy_Coverage_Agent\uploads"
+CONTEXT_PATH = "Policy_Coverage_Agent/uploads"
 
 def load_pdfs(data) :
     loader = DirectoryLoader(data, glob="*.pdf", loader_cls=PyPDFLoader)
@@ -29,7 +29,7 @@ def get_embedding_model() :
 embedding_model = get_embedding_model()
 
 
-DB_PATH = "vectorstore/db_faiss_pca"
+DB_PATH = "vectorstore/db_faiss_policy_coverage_agent"
 db = FAISS.from_documents(text_chunks, embedding_model)
 db.save_local(DB_PATH)
 
