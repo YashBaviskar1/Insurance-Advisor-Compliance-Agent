@@ -1,5 +1,9 @@
 # AI-powered Insurance Advisor & IRDAI Compliance Agent
 
+Solution Video :
+
+[![Watch the video](https://img.youtube.com/vi/kmcWhJaNvTo/0.jpg)](https://youtu.be/kmcWhJaNvTo)
+
 An AI-powered Insurance Advisor and Compliance Agent helping users:
 
 - Choose the right insurance
