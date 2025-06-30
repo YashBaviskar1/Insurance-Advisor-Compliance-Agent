@@ -325,25 +325,29 @@ elif app_mode == "Policy Coverage Agent":
         Provide your personal and risk profile details below to analyze potential coverage gaps and receive recommendations.
         You can also upload your existing policy PDFs (optional) to include them in the analysis.
     """)
-
-    st.subheader("Optional: Upload Your Existing Policy PDFs")
+    if 'uploaded_files' not in st.session_state:
+        st.session_state.uploaded_files = []
+        st.subheader("Optional: Upload Your Existing Policy PDFs")
     uploaded_pdfs = st.file_uploader(
-        "Upload one or more PDF files (optional)", 
-        type=["pdf"], 
-        accept_multiple_files=True
-    )
+            "Upload one or more PDF files (optional)", 
+            type=["pdf"], 
+            accept_multiple_files=True
+        )
+    new_uploads = [f for f in uploaded_pdfs if f not in st.session_state.uploaded_files]
 
-    if uploaded_pdfs:
-        with st.spinner(" Saving and ingesting your uploaded policies..."):
+    if new_uploads:
+        with st.spinner("Saving and ingesting your uploaded policies..."):
             with tempfile.TemporaryDirectory() as tmp_dir:
-                for pdf_file in uploaded_pdfs:
+                for pdf_file in new_uploads:
                     file_path = os.path.join(tmp_dir, pdf_file.name)
                     with open(file_path, "wb") as f:
                         f.write(pdf_file.read())
-
+                
                 try:
                     num_ingested = ingest_policies_from_directory(tmp_dir)
-                    st.success(f"✅ Ingested {num_ingested} policies from your uploaded PDFs.")
+                    st.success(f"✅ Ingested {num_ingested} new policy sections")
+                    # Update session state
+                    st.session_state.uploaded_files.extend(new_uploads)
                 except Exception as e:
                     st.error(f"❌ Error ingesting policies: {e}")
 

@@ -35,9 +35,15 @@ LOCATION_RISKS = {
 def get_location_risk(location: str) -> str:
     return LOCATION_RISKS.get(location.strip(), f"general {location} area with typical risks")
 
-# ========== EMBEDDING MODEL LOADER ==========
+# ========== EMBEDDING MODEL LOADER =========
+import streamlit as st
+@st.cache_resource
 def get_embedding_model():
-    return HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL_NAME)
+    return HuggingFaceEmbeddings(
+        model_name=EMBEDDING_MODEL_NAME,
+        model_kwargs={'device': 'cpu'}  # Use GPU if available: 'cuda'
+    )
+
 
 # ========== INGESTION FUNCTIONS ==========
 def clear_vectorstore(path: str = VECTORSTORE_PATH):
@@ -46,27 +52,33 @@ def clear_vectorstore(path: str = VECTORSTORE_PATH):
         shutil.rmtree(path)
 
 def ingest_policies_from_directory(pdf_directory: str, persist_path: str = VECTORSTORE_PATH):
-    """
-    Load PDFs from a directory, split into chunks, embed, and save FAISS DB.
-    Deletes previous store if exists.
-    """
-    clear_vectorstore(persist_path)
-
-    # 1. Load PDFs
+    # Only clear store if it exists and we want to rebuild completely
+    if not os.path.exists(persist_path):
+        os.makedirs(persist_path)
+    
+    embeddings = get_embedding_model()
+    
+    # Try to load existing DB if available
+    try:
+        db = FAISS.load_local(persist_path, embeddings, allow_dangerous_deserialization=True)
+    except:
+        db = None
+    
+    # Load PDFs
     loader = DirectoryLoader(pdf_directory, glob="*.pdf", loader_cls=PyPDFLoader)
     documents = loader.load()
-    if not documents:
-        raise ValueError(f"No PDF documents found in {pdf_directory}.")
-
-    # 2. Split
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
-    text_chunks = text_splitter.split_documents(documents)
-
-    # 3. Embed & Save
-    embeddings = get_embedding_model()
-    db = FAISS.from_documents(text_chunks, embeddings)
-    db.save_local(persist_path)
-
+    if documents:
+        text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
+        text_chunks = text_splitter.split_documents(documents)
+        
+        if db:
+            db.add_documents(text_chunks)
+        else:
+            db = FAISS.from_documents(text_chunks, embeddings)
+        
+        db.save_local(persist_path)
+        return len(text_chunks)
+    return 0
 # ========== POLICY STORE LOADER ==========
 def load_policy_store(persist_path: str = VECTORSTORE_PATH) -> FAISS:
     embeddings = get_embedding_model()
