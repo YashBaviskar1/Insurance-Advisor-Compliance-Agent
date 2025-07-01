@@ -11,6 +11,8 @@ An AI-powered Insurance Advisor and Compliance Agent helping users:
 - Detect coverage gaps
 - Stay IRDAI-compliant
 
+[Temporary Deployed Link on GCP](http://35.207.235.123/)
+(Valid till 48 hours)
 Supports **CLI** and **Streamlit** interfaces.
 
 ---
